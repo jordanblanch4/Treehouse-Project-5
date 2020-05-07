@@ -55,11 +55,22 @@ function generateModal(data) {
                 <p class="modal-text">Birthday: birthday</p>
             </div>
         </div>`
-    );
+    ).join('');
     modalDiv.innerHTML = users1;
     modalDiv.style.display = "none";
 };
 
 //open/close Modal
+const modalDiv = document.getElementById('modali');
+const openModal = document.getElementById('gallery')
+gallery.addEventListener('click', (event) => {
+    if(event.target.id === "name") { 
+        modalDiv.style.display = "block";
+    }
+})
 
-
+//close modal on x button
+modalDiv.addEventListener('click', (event) => {
+    if(event.target.tagName = 'button')
+    modalDiv.style.display = "none";
+})
