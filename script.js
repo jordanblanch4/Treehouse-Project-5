@@ -3,9 +3,8 @@
 //fetches data and parses it
 fetch('https://randomuser.me/api/?results=12&inc=name,picture,email,location')
     .then(response => response.json())
-    .then(data => generateCard(data.results))
-
-
+    .then(data => generateCard(data.results) && generateModal(data.results))
+    
 //Search Markup
 const searchBar = document.querySelector('.search-container');
 searchBar.innerHTML += `<form action="#" method="get">
@@ -27,40 +26,6 @@ function generateCard(data) {
                         <p class="card-text cap">${item.location.city}</p>
                     </div>
                 </div>`
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-     ).join('');
+        ).join('');
     gallery.innerHTML += users;
 };
-
-
-//Global variables for the event listeners
-// const modalDisplay = document.querySelector('.modal-container');
-// const card = document.querySelectorAll('.card')
-// const modal = document.querySelector('.modal');
-// const closeButton = document.getElementById('modal-close-btn');
-// const search = document.querySelector('#search-input');
-// const cards = document.getElementsByClassName('card');
-
-//FIXME
-// open modal on card click
-// card.addEventListener('click', (e) => {
-    
-// })
-
-
-
-//close modal on button click
-
-// closeButton.addEventListener('click', (e) => {
-//     modal.style.display = 'none';
-// });
-
