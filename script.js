@@ -27,18 +27,28 @@ function generateCard(data) {
                         <p class="card-text cap">${item.location.city}</p>
                     </div>
                 </div>`
-    ).join('');
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+     ).join('');
     gallery.innerHTML += users;
 };
 
 
 //Global variables for the event listeners
-const modalDisplay = document.querySelector('.modal-container');
-const card = document.querySelectorAll('.card')
-const modal = document.querySelector('.modal');
-const closeButton = document.getElementById('modal-close-btn');
-const search = document.querySelector('#search-input');
-const cards = document.getElementsByClassName('card');
+// const modalDisplay = document.querySelector('.modal-container');
+// const card = document.querySelectorAll('.card')
+// const modal = document.querySelector('.modal');
+// const closeButton = document.getElementById('modal-close-btn');
+// const search = document.querySelector('#search-input');
+// const cards = document.getElementsByClassName('card');
 
 //FIXME
 // open modal on card click
