@@ -63,13 +63,13 @@ function generateModal(data) {
 //open/close Modal //fix overlay
 const masterCard = document.getElementById('gallery');
 masterCard.addEventListener('click', (event) => {
-    if(event.target.id === 'name') {
-    const card = document.getElementsByClassName('card');
-    for(let i=0; i<1; i++) {
-    console.log(card[6]);
+ if(event.target.id === 'name') {
+        console.log(event.target.textContent);
+        
     }
     }
-})
+    
+)
 
 
 //close modal on x button
