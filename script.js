@@ -1,7 +1,8 @@
 //Notes style display none
-//mapping
+//mapping/looping
 //search bar
 //utilizing 2 functions on data set
+//HTML
 
 
 //fetches data and parses it
@@ -41,8 +42,7 @@ function generateCard(data) {
 function generateModal(data) {
     const modalDiv = document.getElementById('modali');
     const users1 = data.map(item =>
-        `<div class="modal-container">
-        <div class="modal">
+        `<div class="modal">
             <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
             <div class="modal-info-container">
                 <img class="modal-img" src="${item.picture.large}" alt="profile picture">
@@ -57,29 +57,23 @@ function generateModal(data) {
         </div>`
     ).join('');
     modalDiv.innerHTML = users1;
-    modalDiv.style.display = "none";
+    modalDiv.style.display = 'none'
     };
 
-//open/close Modal
-const modalDiv = document.getElementById('modali');
-modalDiv.style.display = 'block';
-let modalContain = document.getElementsByClassName('modal-info-container');
-const openModal = document.getElementById('gallery');
-gallery.addEventListener('click', (event) => {
-    let modalContain = document.getElementsByClassName('modal-container');
-    if(event.target.id === "name") {
-       let named = document.getElementById('named').textContent;
-        for(let i=0; i<modalContain.length; i++) {
-        
-        if(event.target.textContent === named);{
-            console.log(named);
-        }
+//open/close Modal //fix overlay
+const masterCard = document.getElementById('gallery');
+masterCard.addEventListener('click', (event) => {
+    if(event.target.id === 'name') {
+    const card = document.getElementsByClassName('card');
+    for(let i=0; i<1; i++) {
+    console.log(card[6]);
     }
-}
-}
-);
-//fix overlay
+    }
+})
+
+
 //close modal on x button
+const modalDiv = document.getElementById('modali');
 modalDiv.addEventListener('click', (event) => {
     if(event.target.tagName = 'button')
     modalDiv.style.display = "none";
