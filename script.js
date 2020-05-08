@@ -46,7 +46,7 @@ function generateModal(data) {
             <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
             <div class="modal-info-container">
                 <img class="modal-img" src="${item.picture.large}" alt="profile picture">
-                <h3 id="name" class="modal-name cap">${item.name.first} ${item.name.last}</h3>
+                <h3 id="named" class="modal-name cap">${item.name.first} ${item.name.last}</h3>
                 <p class="modal-text">${item.email}</p>
                 <p class="modal-text cap">${item.location.city}</p>
                 <hr>
@@ -58,17 +58,27 @@ function generateModal(data) {
     ).join('');
     modalDiv.innerHTML = users1;
     modalDiv.style.display = "none";
-};
+    };
 
 //open/close Modal
 const modalDiv = document.getElementById('modali');
-const openModal = document.getElementById('gallery')
+modalDiv.style.display = 'block';
+let modalContain = document.getElementsByClassName('modal-info-container');
+const openModal = document.getElementById('gallery');
 gallery.addEventListener('click', (event) => {
-    if(event.target.id === "name") { 
-        modalDiv.style.display = "block";
+    let modalContain = document.getElementsByClassName('modal-container');
+    if(event.target.id === "name") {
+       let named = document.getElementById('named').textContent;
+        for(let i=0; i<modalContain.length; i++) {
+        
+        if(event.target.textContent === named);{
+            console.log(named);
+        }
     }
-})
-
+}
+}
+);
+//fix overlay
 //close modal on x button
 modalDiv.addEventListener('click', (event) => {
     if(event.target.tagName = 'button')
