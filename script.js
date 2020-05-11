@@ -3,14 +3,17 @@
 //search bar
 //utilizing 2 functions on data set
 //HTML
-
+const pageBody = document.querySelector('body');
+const galleryContainer = document.getElementById('gallery');
+let randomUsers = [];
 
 //fetches data and parses it
-fetch('https://randomuser.me/api/?results=12&inc=name,picture,email,location')
+fetch('https://randomuser.me/api/?results=12&nat=us')
     .then(response => response.json())
-    .then(data => generateCard(data.results))
-    .then(data => generateModal(data))
-    
+    .then(data => {
+        generateCard(data.results);
+        return storeUsers(data.results)})
+    .then((data) => {cardClick(data)})
     
     
 //Search Markup
@@ -20,61 +23,80 @@ searchBar.innerHTML += `<form action="#" method="get">
 <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
 </form>`;
 
+
+function storeUsers(userObjects) {
+    for(let i =0; i<userObjects.length; i++ ) {
+        randomUsers.push(userObjects[i])
+    }
+    return randomUsers;
+}
+
+
 //gallery markup
-function generateCard(data) {
-    const gallery = document.getElementById('gallery');
-    const users = data.map(item => 
+function generateCard(userObjects) {
+    let users = ''
+    for(let i =0; i<userObjects.length; i++) {
+    users+=
     `<div class="card">
     <div class="card-img-container"> 
-        <img class="card-img" src="${item.picture.large}" alt="profile picture"></img>
+        <img class="card-img" src="${userObjects[i].picture.large}" alt="profile picture"></img>
         </div>
         <div class="card-info-container">
-                        <h3 id="name" class="card-name cap">${item.name.first} ${item.name.last}</h3>
-                        <p class="card-text">${item.email}</p>
-                        <p class="card-text cap">${item.location.city}</p>
+                        <h3 id="name" class="card-name cap">${userObjects[i].name.first} ${userObjects[i].name.last}</h3>
+                        <p class="card-text">${userObjects[i].email}</p>
+                        <p class="card-text cap">${userObjects[i].location.city}</p>
                     </div>
-                </div>`
-        ).join('');
-    gallery.innerHTML += users;
-    return data
+                    </div>`;
+    }
+    gallery.innerHTML = users;
+   
 };
-//FIXME::  Birthday
-function generateModal(data) {
-    const modalDiv = document.getElementById('modali');
-    const users1 = data.map(item =>
-        `<div class="modal">
-            <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
-            <div class="modal-info-container">
-                <img class="modal-img" src="${item.picture.large}" alt="profile picture">
-                <h3 id="named" class="modal-name cap">${item.name.first} ${item.name.last}</h3>
-                <p class="modal-text">${item.email}</p>
-                <p class="modal-text cap">${item.location.city}</p>
-                <hr>
-                <p class="modal-text">${item.phone}</p>
-                <p class="modal-text">${item.location.street.number}</p>
-                <p class="modal-text">Birthday: birthday</p>
-            </div>
-        </div>`
-    ).join('');
-    modalDiv.innerHTML = users1;
-    modalDiv.style.display = 'none'
-    };
 
-//open/close Modal //fix overlay
-const masterCard = document.getElementById('gallery');
-masterCard.addEventListener('click', (event) => {
- if(event.target.id === 'name') {
-        console.log(event.target.textContent);
-        
+function modalDisplay(usersModal) {
+    let modalContent = ``;
+    const newDiv = document.createElement('div');
+    newDiv.className = 'modal-container';
+    const month = usersModal.dob.date.slice(5, 7);
+    const day = usersModal.dob.date.slice(8,10);
+    const year = usersModal.dob.date.slice(0, 4);
+    modalContent +=
+    `<div class="modal">
+    <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+    <div class="modal-info-container">
+        <img class="modal-img" src="${usersModal.picture.large}" alt="profile picture">
+        <h3 id="name" class="modal-name cap">${usersModal.name.first} ${usersModal.name.last}</h3>
+        <p class="modal-text">${usersModal.email}</p>
+        <p class="modal-text cap">${usersModal.location.city}</p>
+        <hr>
+        <p class="modal-text">${usersModal.phone}</p>
+        <p class="modal-text">${usersModal.location.street.number} ${usersModal.location.street.name}, ${usersModal.location.city}, ${usersModal.location.state} ${usersModal.location.postcode}</p>
+        <p class="modal-text">Birthday: ${month}/${day}/${year}</p>
+    </div>
+    </div>`;
+    newDiv.innerHTML = modalContent;
+    pageBody.appendChild(newDiv);
+    closeModal();
+  
+}
+
+
+
+//open modal
+function cardClick(userObjects) {
+    const card = document.querySelectorAll('.card');
+    for(let i=0; i< card.length; i++ ) {
+        card[i].addEventListener('click', () => {
+            modalDisplay(userObjects[i]);
+        });
     }
+}
+
+function closeModal() {
+const modalContainer = document.querySelector('.modal');
+modalContainer.addEventListener('click', (event) => {
+    if(event.target.innerText === 'X') {
+        modalContainer.parentNode.removeChild(modalContainer);
+
     }
-    
-)
-
-
-//close modal on x button
-const modalDiv = document.getElementById('modali');
-modalDiv.addEventListener('click', (event) => {
-    if(event.target.tagName = 'button')
-    modalDiv.style.display = "none";
 })
+}
