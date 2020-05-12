@@ -76,6 +76,7 @@ function modalDisplay(usersModal) {
     newDiv.innerHTML = modalContent;
     pageBody.appendChild(newDiv);
     closeModal();
+    
   
 }
 
@@ -89,10 +90,11 @@ function cardClick(userObjects) {
             modalDisplay(userObjects[i]);
         });
     }
+    
 }
 
 function closeModal() {
-const modalContainer = document.querySelector('.modal');
+const modalContainer = document.querySelector('.modal-container');
 modalContainer.addEventListener('click', (event) => {
     if(event.target.innerText === 'X') {
         modalContainer.parentNode.removeChild(modalContainer);
