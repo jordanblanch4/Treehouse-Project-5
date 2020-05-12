@@ -1,42 +1,39 @@
-//Notes style display none
-//mapping/looping
-//search bar
-//utilizing 2 functions on data set
-//HTML
+
+//Global variables
 const pageBody = document.querySelector('body');
 const galleryContainer = document.getElementById('gallery');
-let randomUsers = [];
+let randomEmployees = [];
 
-//fetches data and parses it
+//fetches data and parset it then plugs it in to out function
 fetch('https://randomuser.me/api/?results=12&nat=us')
     .then(response => response.json())
     .then(data => {
         generateCard(data.results);
-        return storeUsers(data.results)})
+        return storeEmployees(data.results)})
     .then((data) => {cardClick(data)})
     
     
-//Search Markup
+//Search Markup created search box doenst have functionality will add later for fun
 const searchBar = document.querySelector('.search-container');
 searchBar.innerHTML += `<form action="#" method="get">
 <input type="search" id="search-input" class="search-input" placeholder="Search...">
 <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
 </form>`;
 
-
-function storeUsers(userObjects) {
+//stores the employees in an array allowing us to use them for creating markup and adjusting said markup on clicks
+function storeEmployees(userObjects) {
     for(let i =0; i<userObjects.length; i++ ) {
-        randomUsers.push(userObjects[i])
+        randomEmployees.push(userObjects[i])
     }
-    return randomUsers;
+    return randomEmployees;
 }
 
 
-//gallery markup
+//creates the gallery markup with employee cards takes in user object
 function generateCard(userObjects) {
-    let users = ''
+    let employees = ''
     for(let i =0; i<userObjects.length; i++) {
-    users+=
+    employees+=
     `<div class="card">
     <div class="card-img-container"> 
         <img class="card-img" src="${userObjects[i].picture.large}" alt="profile picture"></img>
@@ -48,10 +45,11 @@ function generateCard(userObjects) {
                     </div>
                     </div>`;
     }
-    gallery.innerHTML = users;
+    gallery.innerHTML = employees;
    
 };
 
+//created modal view function used later with click event
 function modalDisplay(usersModal) {
     let modalContent = ``;
     const newDiv = document.createElement('div');
@@ -75,6 +73,8 @@ function modalDisplay(usersModal) {
     </div>`;
     newDiv.innerHTML = modalContent;
     pageBody.appendChild(newDiv);
+    
+    //calls close modal now that the modal is open bc called on card click
     closeModal();
     
   
@@ -82,7 +82,7 @@ function modalDisplay(usersModal) {
 
 
 
-//open modal
+//open modal on card click
 function cardClick(userObjects) {
     const card = document.querySelectorAll('.card');
     for(let i=0; i< card.length; i++ ) {
@@ -93,6 +93,7 @@ function cardClick(userObjects) {
     
 }
 
+//closes modal when x button is clicked inside modal card
 function closeModal() {
 const modalContainer = document.querySelector('.modal-container');
 modalContainer.addEventListener('click', (event) => {
