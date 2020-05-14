@@ -80,8 +80,6 @@ function modalDisplay(usersModal) {
   
 }
 
-
-
 //open modal on card click
 function cardClick(userObjects) {
     const card = document.querySelectorAll('.card');
